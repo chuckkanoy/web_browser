@@ -52,17 +52,25 @@ int main(int argc, char *argv[])
     strcat(buffer, " HTTP/1.1\r\n");
     strcat(buffer, "Host: ");
     strcat(buffer, argv[1]);
-    strcat(buffer, "\r\n\n");
-
+    strcat(buffer, "\r\n\r\n");
+    printf("%s", buffer);
     //send the request through the socket
-    n = write(sockfd, buffer, sizeof(buffer));
+    n = write(sockfd, buffer, strlen(buffer));
+    //printf("%d, %d", n, strlen(buffer));
     if(n<0)
         error("ERROR writing to socket");
     bzero(buffer,256);
 
+    n = 1;
     //read and display the returned webpage as raw html file
-    n = read(sockfd, buffer, sizeof(buffer));
+    while(n > 0){
+        n = read(sockfd, buffer, sizeof(buffer));
+        if(n > 0) printf("%s\n", buffer);
+        bzero(buffer, 256);
+        //fflush(buffer);
+    }
 
-    printf("%s\n", buffer);
+    close(sockfd);
+
     return 0;
 }
