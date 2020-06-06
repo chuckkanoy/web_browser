@@ -1,4 +1,4 @@
-#Web Browser
+# Web Browser
 This is another project from my CSCI 459: Foundations of Computer Networks class. It  only has one source code file which compiles into one executable file. It reads raw html data from a website.
 
 ## Compiling:
